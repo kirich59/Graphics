@@ -127,7 +127,7 @@
   <data name="penToolStrip.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
-        YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAC3SURBVDhP1dFNDsFQGIXha+AnFWFgCSZSpiZsQSKxDYmh
+        YQUAAAAJcEhZcwAAEnQAABJ0Ad5mH3gAAAC3SURBVDhP1dFNDsFQGIXha+AnFWFgCSZSpiZsQSKxDYmh
         xB6sQLqA1hBBYikW4z1cIcL1tTMnedLbpud+/XEF0/BHc6roooUMa2xgisoqnXBGDCVB8778nkd5jD22
         GKKHFMG8lzW5Bm2ipwlOL0Pv+FpWNFkbDG5ngVQwwqfyz/dW9LX/sKyvvsMBHfT9uamszDFBG0fkKteh
         Ry1h6tfmsrLECirOoN9ojm6+YIFIF4ok18RnnLsCR5wg6yF8r9IAAAAASUVORK5CYII=
@@ -136,14 +136,14 @@
   <data name="lineToolStrip.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
-        YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAAySURBVDhPYxgowAalyQKyQLwbiNnBPBIBTDOIJhmMaiYR
+        YQUAAAAJcEhZcwAAEnQAABJ0Ad5mH3gAAAAySURBVDhPYxgowAalyQKyQLwbiNnBPBIBTDOIJhmMaiYR
         jETNoGRJtmYYoCiDkAkYGAAHPwtddnCJMQAAAABJRU5ErkJggg==
 </value>
   </data>
   <data name="starToolStrip.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAA9UAAAO0CAYAAACr4hXgAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
-        YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAJ8mSURBVHhe7N0HeBTV+sdx0ishkNB7k44CIk0RpSgKNsCC
+        YQUAAAAJcEhZcwAAEnQAABJ0Ad5mH3gAAJ8mSURBVHhe7N0HeBTV+sdx0ishkNB7k44CIk0RpSgKNsCC
         oAKC2LCbe/UqXisqKmJBsFAURVAERREQpCi99xo6BEiAhJCenP++ezf80YOQhE0yZ+b7eZ7f877r3quQ
         zOzM2Zk5pwQAACh+6enpauvWrWrhwoVq9uzZas6cOWrZsmXq8OHDyvM/AQAAAAAAIisrS82aNUs9+uij
         qkmTJsrf318Gz+dMqVKl1PXXX6/efPNNFRsbK/8MAAAAAADnkSvPzz//vCpfvrw2eM5LfHx8VLt27dSU
@@ -828,7 +828,7 @@
   <data name="ellipseToolStrip.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAAQAAAAEACAYAAABccqhmAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
-        YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAkASURBVHhe7dxrluQmEgZQ72yWNkvz0mZMz9BHTgfKAgEC
+        YQUAAAAJcEhZcwAAEnQAABJ0Ad5mH3gAAAkASURBVHhe7dxrluQmEgZQ72yWNkvz0mZMz9BHTgfKAgEC
         6d5zvj9dj6ySiCBQlv0HAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAH/71V/7dmPS1wEI+i/TP
         v/Kfm5Je+/PnAS447th3FnevHJuEiQIOjsUeFc+ToynwKnnBP2FXH5XjtABby7u7gm9PbgimBLag4Mcm
         NwRYQlqMKdFilfHJ1x+mSQvOLr9eTAcMk8/z0cKT9ZLulecGXKLonxHNgCppwew64ucx+KfJoo+Vsvu1
@@ -873,7 +873,7 @@
   <data name="zoomInToolStrip.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAA9UAAAPUCAYAAACjFhq6AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
-        YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAJDrSURBVHhe7N0HeFRV2sBx0xNCD4TeuyIoKFIEFUFBsCIi
+        YQUAAAAJcEhZcwAAEnQAABJ0Ad5mH3gAAJDrSURBVHhe7N0HeFRV2sBx0xNCD4TeuyIoKFIEFUFBsCIi
         IGuhK8SCigWN+umKDQErrgVcXQWsiBSR3quKdCkiHQSkpJLk/eYd4656KOmZe87/9zz/55zgrpJk5s68
         ycy9ZwEA8saJEyfkwIED8tNPP8ny5ctlxowZMmHCBHnrrbfk+eefl0cffVTuu+8+6devn/Tq1Uu6du0q
         HTp0kMsvv1yaNm0qjRo1kpo1a/orX768lCpV6i8VL15cfP8ZI/3zv/9v9f//x79L/73679f/jv739L+r
@@ -1498,7 +1498,7 @@
   <data name="zoomOutToolStrip.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAAgAAAAIACAYAAAD0eNT6AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
-        YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAACNxSURBVHhe7d0HtG1XXe/xC2nUQOg9QACBSFWQolTpPRQp
+        YQUAAAAJcEhZcwAAEnQAABJ0Ad5mH3gAACNxSURBVHhe7d0HtG1XXe/xC2nUQOg9QACBSFWQolTpPRQp
         79FRQhEUEASR3pvSuxCK0nsJvQhIeBTpTRQJBAg9QCAkvPf7kzxvkvu/55Zzzt5rr/n5jPEdMAYQ1r1n
         zT3XWXutObcAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
         AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAsGv2TGdP

@@ -109,7 +109,45 @@ namespace Graphic
 
         private void pictureBox1_MouseUp(object sender, MouseEventArgs e)
         {
+            if (e.Button == MouseButtons.Left)
+            {
+                System.Drawing.Graphics g = System.Drawing.Graphics.FromImage(pictureBox1.Image);
+                switch ((this.MdiParent as Form1).currentInstrument)
+                {
+                    case 1:
+                        break;
+                    case 2:
+                        g.DrawLine(new Pen((this.MdiParent as Form1).color, (this.MdiParent as Form1).width), oldX, oldY, e.X, e.Y);
+                        pictureBox1.Refresh();
+                        break;
+                    case 3:
+                        double R = (e.X - oldX) / 2, r = e.X-oldX;   // радиусы
+                        double alpha = 60;        // поворот
+                        double x0 = (e.X + oldX) / 2, y0 = (e.Y + oldY) / 2; // центр
 
+                        PointF[] points = new PointF[11];
+                        double a = alpha, da = Math.PI / 5, l;
+                        for (int k = 0; k < 11; k++)
+                        {
+                            l = k % 2 == 0 ? r : R;
+                            points[k] = new PointF((float)(x0 + l * Math.Cos(a)), (float)(y0 + l * Math.Sin(a)));
+                            a += da;
+                        }
+
+                        g.DrawLines(new Pen((this.MdiParent as Form1).color, (this.MdiParent as Form1).width), points);
+                        pictureBox1.Refresh();
+                        break;
+                    case 4:
+                        g.DrawEllipse(new Pen((this.MdiParent as Form1).color, (this.MdiParent as Form1).width), oldX, oldY, e.X - oldX, e.Y - oldY);
+                        pictureBox1.Refresh();
+                        break;
+                    case 5:
+                        break;
+                    case 6:
+                        break;
+                }
+
+            }
         }
 
         public void Save(string _path)
