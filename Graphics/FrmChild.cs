@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Drawing.Drawing2D;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -112,19 +113,19 @@ namespace Graphic
             if (e.Button == MouseButtons.Left)
             {
                 System.Drawing.Graphics g = System.Drawing.Graphics.FromImage(pictureBox1.Image);
+                Pen pen = new Pen((this.MdiParent as Form1).color, (this.MdiParent as Form1).width);
                 switch ((this.MdiParent as Form1).currentInstrument)
                 {
                     case 1:
                         break;
                     case 2:
-                        g.DrawLine(new Pen((this.MdiParent as Form1).color, (this.MdiParent as Form1).width), oldX, oldY, e.X, e.Y);
+                        g.DrawLine(pen, oldX, oldY, e.X, e.Y);
                         pictureBox1.Refresh();
                         break;
                     case 3:
-                        double R = (e.X - oldX) / 2, r = e.X-oldX;   // радиусы
+                        double R = (e.X - oldX) / 2, r = e.X - oldX;   // радиусы
                         double alpha = 60;        // поворот
                         double x0 = (e.X + oldX) / 2, y0 = (e.Y + oldY) / 2; // центр
-
                         PointF[] points = new PointF[11];
                         double a = alpha, da = Math.PI / 5, l;
                         for (int k = 0; k < 11; k++)
@@ -133,12 +134,11 @@ namespace Graphic
                             points[k] = new PointF((float)(x0 + l * Math.Cos(a)), (float)(y0 + l * Math.Sin(a)));
                             a += da;
                         }
-
-                        g.DrawLines(new Pen((this.MdiParent as Form1).color, (this.MdiParent as Form1).width), points);
+                        g.DrawLines(pen, points);
                         pictureBox1.Refresh();
                         break;
                     case 4:
-                        g.DrawEllipse(new Pen((this.MdiParent as Form1).color, (this.MdiParent as Form1).width), oldX, oldY, e.X - oldX, e.Y - oldY);
+                        g.DrawEllipse(pen, oldX, oldY, e.X - oldX, e.Y - oldY);
                         pictureBox1.Refresh();
                         break;
                     case 5:
@@ -148,6 +148,39 @@ namespace Graphic
                 }
 
             }
+        }
+
+        public void ZoomIn()
+        {
+            //Bitmap bitmap = new Bitmap(pictureBox1.Image, pictureBox1.Width * 2, pictureBox1.Height * 2);
+            //bmp = bitmap;
+            //pictureBox1.Image = bmp;
+            //pictureBox1.Refresh();
+
+            Image result = new Bitmap(pictureBox1.Image.Width * 2, pictureBox1.Image.Height * 2);
+            using (System.Drawing.Graphics g = System.Drawing.Graphics.FromImage((Image)result))
+            {
+                g.InterpolationMode = InterpolationMode.HighQualityBicubic;
+                g.DrawImage(bmp, 0, 0, pictureBox1.Image.Width * 2, pictureBox1.Image.Height * 2);
+                g.Dispose();
+            }
+            pictureBox1.Image = result;
+            bmp = (Bitmap)result;
+            pictureBox1.Refresh();
+        }
+
+        public void ZoomOut()
+        {
+            Image result = new Bitmap(pictureBox1.Image.Width / 2, pictureBox1.Image.Height / 2);
+            using (System.Drawing.Graphics g = System.Drawing.Graphics.FromImage((Image)result))
+            {
+                g.InterpolationMode = InterpolationMode.HighQualityBicubic;
+                g.DrawImage(bmp, 0, 0, pictureBox1.Image.Width / 2, pictureBox1.Image.Height / 2);
+                g.Dispose();
+            }
+            pictureBox1.Image = result;
+            bmp = (Bitmap)result;
+            pictureBox1.Refresh();
         }
 
         public void Save(string _path)

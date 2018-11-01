@@ -142,6 +142,7 @@ namespace Graphic
         private void zoomInToolStrip_Click(object sender, EventArgs e)
         {
             currentInstrument = 5;
+            ((FrmChild)this.ActiveMdiChild).ZoomIn();
             zoomInToolStrip.BackColor = Color.IndianRed;
             ellipseToolStrip.BackColor = Control.DefaultBackColor;
             starToolStrip.BackColor = Control.DefaultBackColor;
@@ -153,6 +154,7 @@ namespace Graphic
         private void zoomOutToolStrip_Click(object sender, EventArgs e)
         {
             currentInstrument = 6;
+            ((FrmChild)this.ActiveMdiChild).ZoomOut();
             zoomOutToolStrip.BackColor = Color.IndianRed;
             zoomInToolStrip.BackColor = Control.DefaultBackColor;
             ellipseToolStrip.BackColor = Control.DefaultBackColor;
