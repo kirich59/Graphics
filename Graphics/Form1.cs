@@ -31,7 +31,7 @@ namespace Graphic
         private void Form1_Load(object sender, EventArgs e)
         {
             toolStrip1.Visible = false;
-            numericUpDown1.Visible = false;
+            trackBar1.Visible = false;
             color = Color.Black;
             currentInstrument = 1;
         }
@@ -72,7 +72,6 @@ namespace Graphic
                     child.MdiParent = this;
                     child.Show();
                     toolStrip1.Visible = true;
-                    numericUpDown1.Visible = true;
                 }
             }
         }
@@ -91,19 +90,18 @@ namespace Graphic
 
         private void numericUpDown1_ValueChanged(object sender, EventArgs e)
         {
-            width = (int)numericUpDown1.Value;
+            
         }
 
         private void toolStripLabel2_Click(object sender, EventArgs e)
         {
-            if (numericUpDown1.Visible == true) numericUpDown1.Visible = false;
-            else numericUpDown1.Visible = true;
+            
         }
 
         private void toolStripLabel2_Click_1(object sender, EventArgs e)
         {
-            if (numericUpDown1.Visible == true) numericUpDown1.Visible = false;
-            else numericUpDown1.Visible = true;
+            if (trackBar1.Visible == true) trackBar1.Visible = false;
+            else trackBar1.Visible = true;
         }
 
         private void lineToolStrip_Click(object sender, EventArgs e)
@@ -115,6 +113,7 @@ namespace Graphic
             zoomInToolStrip.BackColor = Control.DefaultBackColor;
             zoomOutToolStrip.BackColor = Control.DefaultBackColor;
             penToolStrip.BackColor = Control.DefaultBackColor;
+            toolStripButton1.BackColor = Control.DefaultBackColor;
         }
 
         private void starToolStrip_Click(object sender, EventArgs e)
@@ -126,6 +125,7 @@ namespace Graphic
             zoomInToolStrip.BackColor = Control.DefaultBackColor;
             zoomOutToolStrip.BackColor = Control.DefaultBackColor;
             penToolStrip.BackColor = Control.DefaultBackColor;
+            toolStripButton1.BackColor = Control.DefaultBackColor;
         }
 
         private void ellipseToolStrip_Click(object sender, EventArgs e)
@@ -137,6 +137,7 @@ namespace Graphic
             zoomInToolStrip.BackColor = Control.DefaultBackColor;
             zoomOutToolStrip.BackColor = Control.DefaultBackColor;
             penToolStrip.BackColor = Control.DefaultBackColor;
+            toolStripButton1.BackColor = Control.DefaultBackColor;
         }
 
         private void zoomInToolStrip_Click(object sender, EventArgs e)
@@ -149,6 +150,7 @@ namespace Graphic
             lineToolStrip.BackColor = Control.DefaultBackColor;
             zoomOutToolStrip.BackColor = Control.DefaultBackColor;
             penToolStrip.BackColor = Control.DefaultBackColor;
+            toolStripButton1.BackColor = Control.DefaultBackColor;
         }
 
         private void zoomOutToolStrip_Click(object sender, EventArgs e)
@@ -161,6 +163,7 @@ namespace Graphic
             starToolStrip.BackColor = Control.DefaultBackColor;
             lineToolStrip.BackColor = Control.DefaultBackColor;
             penToolStrip.BackColor = Control.DefaultBackColor;
+            toolStripButton1.BackColor = Control.DefaultBackColor;
         }
 
         private void penToolStrip_Click(object sender, EventArgs e)
@@ -172,6 +175,30 @@ namespace Graphic
             ellipseToolStrip.BackColor = Control.DefaultBackColor;
             starToolStrip.BackColor = Control.DefaultBackColor;
             lineToolStrip.BackColor = Control.DefaultBackColor;
+            toolStripButton1.BackColor = Control.DefaultBackColor;
+        }
+
+        private void trackBar1_ValueChanged(object sender, EventArgs e)
+        {
+            width = (int)trackBar1.Value;
+        }
+
+        private void toolStripButton1_Click(object sender, EventArgs e)
+        {
+            currentInstrument = 7;
+            trackBar1.Visible = true;
+            toolStripButton1.BackColor= Color.IndianRed;
+            penToolStrip.BackColor = Control.DefaultBackColor;
+            zoomOutToolStrip.BackColor = Control.DefaultBackColor;
+            zoomInToolStrip.BackColor = Control.DefaultBackColor;
+            ellipseToolStrip.BackColor = Control.DefaultBackColor;
+            starToolStrip.BackColor = Control.DefaultBackColor;
+            lineToolStrip.BackColor = Control.DefaultBackColor;
+        }
+
+        private void toolStripButton2_Click(object sender, EventArgs e)
+        {
+            ((FrmChild)this.ActiveMdiChild).GoToPrevious();
         }
     }
 }

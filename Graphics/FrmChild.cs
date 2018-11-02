@@ -16,6 +16,8 @@ namespace Graphic
         int oldX, oldY;
         Bitmap bmp;
         Size _oldSize;
+        static readonly int StoreCapacity = 20;
+        Stack<Bitmap> Store = new Stack<Bitmap>(StoreCapacity);
         public FrmChild()
         {
             InitializeComponent();
@@ -38,21 +40,16 @@ namespace Graphic
                 switch ((this.MdiParent as Form1).currentInstrument)
                 {
                     case 1:
-                        g.DrawLine(new Pen((this.MdiParent as Form1).color, (this.MdiParent as Form1).width), oldX, oldY, e.X, e.Y);
+                        g.DrawLine(new Pen((this.MdiParent as Form1).color, (this.MdiParent as Form1).width) { StartCap = LineCap.Round, EndCap = LineCap.Round, LineJoin = LineJoin.Round }, oldX, oldY, e.X, e.Y);
                         oldX = e.X;
                         oldY = e.Y;
                         pictureBox1.Refresh();
                         break;
-                    case 2:
-                        break;
-                    case 3:
-                        break;
-                    case 4:
-                        //g.DrawEllipse(new Pen((this.MdiParent as Form1).color, (this.MdiParent as Form1).width))
-                        break;
-                    case 5:
-                        break;
-                    case 6:
+                    case 7:
+                        g.DrawLine(new Pen(pictureBox1.BackColor, (this.MdiParent as Form1).width) { StartCap = LineCap.Round, EndCap = LineCap.Round, LineJoin = LineJoin.Round }, oldX, oldY, e.X, e.Y);
+                        oldX = e.X;
+                        oldY = e.Y;
+                        pictureBox1.Refresh();
                         break;
                 }
 
@@ -71,6 +68,8 @@ namespace Graphic
                 oldX = e.X;
                 oldY = e.Y;
             }
+            GoToPrevious();
+            SaveState();
         }
 
         private void FrmChild_SizeChanged(object sender, EventArgs e)
@@ -113,11 +112,9 @@ namespace Graphic
             if (e.Button == MouseButtons.Left)
             {
                 System.Drawing.Graphics g = System.Drawing.Graphics.FromImage(pictureBox1.Image);
-                Pen pen = new Pen((this.MdiParent as Form1).color, (this.MdiParent as Form1).width);
+                Pen pen = new Pen((this.MdiParent as Form1).color, (this.MdiParent as Form1).width) { StartCap = LineCap.Round, EndCap = LineCap.Round, LineJoin = LineJoin.Round };
                 switch ((this.MdiParent as Form1).currentInstrument)
                 {
-                    case 1:
-                        break;
                     case 2:
                         g.DrawLine(pen, oldX, oldY, e.X, e.Y);
                         pictureBox1.Refresh();
@@ -140,10 +137,6 @@ namespace Graphic
                     case 4:
                         g.DrawEllipse(pen, oldX, oldY, e.X - oldX, e.Y - oldY);
                         pictureBox1.Refresh();
-                        break;
-                    case 5:
-                        break;
-                    case 6:
                         break;
                 }
 
@@ -186,6 +179,37 @@ namespace Graphic
         public void Save(string _path)
         {
             pictureBox1.Image.Save(_path);
+        }
+
+        public void GoToPrevious()
+        {
+            if (Store.Count > StoreCapacity)
+            {
+                Bitmap[] bitmaps = Store.ToArray();
+                Store.Clear();
+
+                for (int i = StoreCapacity - 1, j = 0; j < StoreCapacity && i > -1; i--, j++)
+                    Store.Push(bitmaps[i]);
+            }
+
+            if (Store.Count > 0)
+            {
+                bmp = Store.Pop();
+
+                if (bmp.Width < pictureBox1.Width || bmp.Height < pictureBox1.Height)
+                {
+                    var sketchBitmap = (Bitmap)pictureBox1.Image.Clone();
+                    pictureBox1.Image = new Bitmap(bmp.Width < pictureBox1.Width ? pictureBox1.Width : bmp.Width,
+bmp.Height < pictureBox1.Height ? pictureBox1.Height : bmp.Height);
+                    System.Drawing.Graphics g2 = System.Drawing.Graphics.FromImage(pictureBox1.Image);
+                    g2.DrawImage(sketchBitmap, new Rectangle(0, 0, sketchBitmap.Width, sketchBitmap.Height));
+                }
+            }
+        }
+        void SaveState()
+        {
+            if (pictureBox1.Image != null)
+                Store.Push((Bitmap)pictureBox1.Image.Clone());
         }
     }
 }
