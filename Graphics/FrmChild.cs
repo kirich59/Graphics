@@ -90,20 +90,20 @@ namespace Graphic
 
         private void FrmChild_ResizeEnd(object sender, EventArgs e)
         {
-            //pictureBox1.Size += (this.Size-_oldSize);
-            //Bitmap tmp = new Bitmap(bmp, pictureBox1.Size);
-            //bmp = tmp;
-            //pictureBox1.Image = bmp;
-            //pictureBox1.Refresh();
 
-
-            var bmp = (Bitmap)pictureBox1.Image.Clone();
-
-            if (bmp.Height < Height && bmp.Width < Width)
+            if (pictureBox1.Image != null && (pictureBox1.Image.Width < pictureBox1.Width || pictureBox1.Image.Height < pictureBox1.Height))
             {
-                pictureBox1.Image = new Bitmap(Width, Height);
-                System.Drawing.Graphics G = System.Drawing.Graphics.FromImage(pictureBox1.Image);
-                G.DrawImageUnscaledAndClipped(bmp, new Rectangle(0, 0, bmp.Height, bmp.Width));
+                var photoBitmap = (Bitmap)bmp.Clone();
+                var sketchBitmap = (Bitmap)pictureBox1.Image.Clone();
+
+                bmp = new Bitmap(pictureBox1.Width, pictureBox1.Height);
+                pictureBox1.Image = new Bitmap(pictureBox1.Width, pictureBox1.Height);
+
+                System.Drawing.Graphics g1 = System.Drawing.Graphics.FromImage(bmp);
+                System.Drawing.Graphics g2 = System.Drawing.Graphics.FromImage(pictureBox1.Image);
+
+                g1.DrawImage(photoBitmap, new Rectangle(0, 0, photoBitmap.Width, photoBitmap.Height));
+                g2.DrawImage(sketchBitmap, new Rectangle(0, 0, sketchBitmap.Width, sketchBitmap.Height));
             }
         }
 
@@ -149,31 +149,38 @@ namespace Graphic
             //bmp = bitmap;
             //pictureBox1.Image = bmp;
             //pictureBox1.Refresh();
-
-            Image result = new Bitmap(pictureBox1.Image.Width * 2, pictureBox1.Image.Height * 2);
-            using (System.Drawing.Graphics g = System.Drawing.Graphics.FromImage((Image)result))
+            if (pictureBox1.Image.Width <= this.Width * 4)
             {
-                g.InterpolationMode = InterpolationMode.HighQualityBicubic;
-                g.DrawImage(bmp, 0, 0, pictureBox1.Image.Width * 2, pictureBox1.Image.Height * 2);
-                g.Dispose();
+                Image result = new Bitmap(pictureBox1.Image.Width * 2, pictureBox1.Image.Height * 2);
+                using (System.Drawing.Graphics g = System.Drawing.Graphics.FromImage((Image)result))
+                {
+                    g.InterpolationMode = InterpolationMode.HighQualityBicubic;
+                    g.DrawImage(bmp, 0, 0, pictureBox1.Image.Width * 2, pictureBox1.Image.Height * 2);
+                    g.Dispose();
+                }
+                pictureBox1.Image = result;
+                bmp = (Bitmap)result;
+                pictureBox1.Refresh();
             }
-            pictureBox1.Image = result;
-            bmp = (Bitmap)result;
-            pictureBox1.Refresh();
+            else MessageBox.Show("Невозможно увеличить изображение");
         }
 
         public void ZoomOut()
         {
-            Image result = new Bitmap(pictureBox1.Image.Width / 2, pictureBox1.Image.Height / 2);
-            using (System.Drawing.Graphics g = System.Drawing.Graphics.FromImage((Image)result))
+            if (pictureBox1.Image.Width >= this.Width / 10)
             {
-                g.InterpolationMode = InterpolationMode.HighQualityBicubic;
-                g.DrawImage(bmp, 0, 0, pictureBox1.Image.Width / 2, pictureBox1.Image.Height / 2);
-                g.Dispose();
+                Image result = new Bitmap(pictureBox1.Image.Width / 2, pictureBox1.Image.Height / 2);
+                using (System.Drawing.Graphics g = System.Drawing.Graphics.FromImage((Image)result))
+                {
+                    g.InterpolationMode = InterpolationMode.HighQualityBicubic;
+                    g.DrawImage(bmp, 0, 0, pictureBox1.Image.Width / 2, pictureBox1.Image.Height / 2);
+                    g.Dispose();
+                }
+                pictureBox1.Image = result;
+                bmp = (Bitmap)result;
+                pictureBox1.Refresh();
             }
-            pictureBox1.Image = result;
-            bmp = (Bitmap)result;
-            pictureBox1.Refresh();
+            else MessageBox.Show("Невозможно уменьшить изображение");
         }
 
         public void Save(string _path)
@@ -210,6 +217,174 @@ bmp.Height < pictureBox1.Height ? pictureBox1.Height : bmp.Height);
         {
             if (pictureBox1.Image != null)
                 Store.Push((Bitmap)pictureBox1.Image.Clone());
+        }
+
+        public void Emboss()
+        {
+            Bitmap temp = new Bitmap(pictureBox1.Image);
+            int i, j, DispX = 1, DispY = 1, red, green, blue;
+            for (i = 0; i <= temp.Height - 2; i++)
+            {
+                for (j = 0; j <= temp.Width - 2; j++)
+                {
+                    Color pixel1, pixel2;
+                    pixel1 = temp.GetPixel(j, i);
+                    pixel2 = temp.GetPixel(j + DispX, i + DispY);
+                    red = Math.Min(Math.Abs(pixel1.R - pixel2.R) + 128, 255);
+                    green = Math.Min(Math.Abs(pixel1.G - pixel2.G) + 128, 255);
+                    blue = Math.Min(Math.Abs(pixel1.B - pixel2.B) + 128, 255);
+                    bmp.SetPixel(j, i, Color.FromArgb(red, green, blue));
+                }
+                if (i % 10 == 0)
+                {
+                    pictureBox1.Invalidate();
+                    pictureBox1.Refresh();
+                    this.Text = (100 * i / (pictureBox1.Image.Height - 2)).ToString() + "%";
+                }
+            }
+            this.Text = "Дочерняя форма";
+            pictureBox1.Refresh();
+        }
+        public void Diffuse()
+        {
+            Bitmap temp = new Bitmap(pictureBox1.Image);
+            int i, j, DispX = 1, DispY = 1, red, green, blue;
+            var random = new Random();
+            for (i = 3; i < temp.Height - 3; i++)
+            {
+                for (j = 3; j < temp.Width - 3; j++)
+                {
+                    DispX = (int)(random.NextDouble() * 4 - 2);
+                    DispY = (int)(random.NextDouble() * 4 - 2);
+                    red = temp.GetPixel(j + DispX, i + DispY).R;
+                    green = temp.GetPixel(j + DispX, i + DispY).G;
+                    blue = temp.GetPixel(j + DispX, i + DispY).B;
+                    bmp.SetPixel(j, i, Color.FromArgb(red, green, blue));
+                }
+
+                if (i % 10 == 0)
+                {
+                    pictureBox1.Invalidate();
+                    pictureBox1.Refresh();
+                    this.Text = (100 * i / (pictureBox1.Image.Height - 2)).ToString() + "%";
+                }
+            }
+            this.Text = "Дочерняя форма";
+            pictureBox1.Refresh();
+        }
+        public void Sharpen()
+        {
+            Bitmap temp = new Bitmap(pictureBox1.Image);
+            int i, j, DispX = 1, DispY = 1, red, green, blue;
+            for (i = DispX; i < temp.Height - DispX - 1; i++)
+            {
+                for (j = DispY; j < temp.Width - DispY - 1; j++)
+                {
+                    red = (Int32)((temp.GetPixel(j, i).R) + 0.5 * ((temp.GetPixel(j, i).R) - (temp.GetPixel(j - DispX, i - DispY).R)));
+                    green = (Int32)((temp.GetPixel(j, i).G) + 0.5 * ((temp.GetPixel(j, i).G) - (temp.GetPixel(j - DispX, i - DispY).G)));
+                    blue = (Int32)((temp.GetPixel(j, i).B) + 0.5 * ((temp.GetPixel(j, i).B) - (temp.GetPixel(j - DispX, i - DispY).B)));
+                    red = Math.Min(Math.Max(red, 0), 255);
+                    green = Math.Min(Math.Max(green, 0), 255);
+                    blue = Math.Min(Math.Max(blue, 0), 255);
+                    bmp.SetPixel(j, i, Color.FromArgb(red, green, blue));
+
+                }
+                if (i % 10 == 0)
+                {
+                    pictureBox1.Invalidate();
+                    pictureBox1.Refresh();
+                    this.Text = (100 * i / (pictureBox1.Image.Height - 2)).ToString() + "%";
+                }
+            }
+            this.Text = "Дочерняя форма";
+            pictureBox1.Refresh();
+        }
+        public void Smooth()
+        {
+            Bitmap temp = new Bitmap(pictureBox1.Image);
+            int i, j, DispX = 1, DispY = 1, red, green, blue;
+            for (i = DispX; i < temp.Height - DispX - 1; i++)
+            {
+                for (j = DispY; j < temp.Width - DispY - 1; j++)
+                {
+                    red = (int)(((int)(temp.GetPixel(j - 1, i - 1).R) +
+                            (int)(temp.GetPixel(j - 1, i).R) +
+                            (int)(temp.GetPixel(j - 1, i + 1).R) +
+                            (int)(temp.GetPixel(j, i - 1).R) +
+                            (int)(temp.GetPixel(j, i).R) +
+                            (int)(temp.GetPixel(j, i + 1).R) +
+                            (int)(temp.GetPixel(j + 1, i - 1).R) +
+                            (int)(temp.GetPixel(j + 1, i).R) +
+                            (int)(temp.GetPixel(j + 1, i + 1).R)) / 9);
+
+                    green = (int)(((int)(temp.GetPixel(j - 1, i - 1).G) +
+                            (int)(temp.GetPixel(j - 1, i).G) +
+                            (int)(temp.GetPixel(j - 1, i + 1).G) +
+                            (int)(temp.GetPixel(j, i - 1).G) +
+                            (int)(temp.GetPixel(j, i).G) +
+                            (int)(temp.GetPixel(j, i + 1).G) +
+                            (int)(temp.GetPixel(j + 1, i - 1).G) +
+                            (int)(temp.GetPixel(j + 1, i).G) +
+                            (int)(temp.GetPixel(j + 1, i + 1).G)) / 9);
+
+                    blue = (int)(((int)(temp.GetPixel(j - 1, i - 1).B) +
+                            (int)(temp.GetPixel(j - 1, i).B) +
+                            (int)(temp.GetPixel(j - 1, i + 1).B) +
+                            (int)(temp.GetPixel(j, i - 1).B) +
+                            (int)(temp.GetPixel(j, i).B) +
+                            (int)(temp.GetPixel(j, i + 1).B) +
+                            (int)(temp.GetPixel(j + 1, i - 1).B) +
+                            (int)(temp.GetPixel(j + 1, i).B) +
+                            (int)(temp.GetPixel(j + 1, i + 1).B)) / 9);
+                    red = Math.Min(Math.Max(red, 0), 255);
+                    green = Math.Min(Math.Max(green, 0), 255);
+                    blue = Math.Min(Math.Max(blue, 0), 255);
+                    bmp.SetPixel(j, i, Color.FromArgb(red, green, blue));
+                }
+                if (i % 10 == 0)
+                {
+                    pictureBox1.Invalidate();
+                    pictureBox1.Refresh();
+                    this.Text = (100 * i / (pictureBox1.Image.Height - 2)).ToString() + "%";
+                }
+            }
+            this.Text = "Дочерняя форма";
+            pictureBox1.Refresh();
+        }
+        public void ViewNormal()
+        {
+            pictureBox1.Width = pictureBox1.Image.Width;
+            pictureBox1.Height = pictureBox1.Image.Height;
+        }
+        public void ViewZoomOut()
+        {
+            pictureBox1.Width = pictureBox1.Image.Width / 2;
+            pictureBox1.Height = pictureBox1.Image.Height / 2;
+        }
+        public void ViewZoomIn()
+        {
+            pictureBox1.Width = pictureBox1.Image.Width * 2;
+            pictureBox1.Height = pictureBox1.Image.Height * 2;
+        }
+        public void RotateLeft()
+        {
+            pictureBox1.Image.RotateFlip(RotateFlipType.Rotate270FlipNone);
+            pictureBox1.Width = pictureBox1.Height * pictureBox1.Image.Width / pictureBox1.Image.Height;
+        }
+        public void RotateRight()
+        {
+            pictureBox1.Image.RotateFlip(RotateFlipType.Rotate90FlipNone);
+            pictureBox1.Width = pictureBox1.Height * pictureBox1.Image.Width / pictureBox1.Image.Height;
+        }
+        public void FlipHorizontal()
+        {
+            pictureBox1.Image.RotateFlip(RotateFlipType.RotateNoneFlipX);
+            pictureBox1.Refresh();
+        }
+        public void FlipVertical()
+        {
+            pictureBox1.Image.RotateFlip(RotateFlipType.RotateNoneFlipY);
+            pictureBox1.Refresh();
         }
     }
 }

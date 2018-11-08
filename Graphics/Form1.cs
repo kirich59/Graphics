@@ -200,5 +200,60 @@ namespace Graphic
         {
             ((FrmChild)this.ActiveMdiChild).GoToPrevious();
         }
+
+        private void эффект1ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ((FrmChild)this.ActiveMdiChild).Emboss();
+        }
+
+        private void эффект7ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ((FrmChild)this.ActiveMdiChild).Diffuse();
+        }
+
+        private void эффект2ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ((FrmChild)this.ActiveMdiChild).Sharpen();
+        }
+
+        private void эффект3ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ((FrmChild)this.ActiveMdiChild).Smooth();
+        }
+
+        private void эффект4ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ((FrmChild)this.ActiveMdiChild).ViewNormal();
+        }
+
+        private void эффект5ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ((FrmChild)this.ActiveMdiChild).ViewZoomOut();
+        }
+
+        private void эффект6ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ((FrmChild)this.ActiveMdiChild).ViewZoomIn();
+        }
+
+        private void эффект8ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ((FrmChild)this.ActiveMdiChild).RotateLeft();
+        }
+
+        private void эффект9ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ((FrmChild)this.ActiveMdiChild).RotateRight();
+        }
+
+        private void эффект10ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ((FrmChild)this.ActiveMdiChild).FlipHorizontal();
+        }
+
+        private void эффект11ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ((FrmChild)this.ActiveMdiChild).FlipVertical();
+        }
     }
 }
