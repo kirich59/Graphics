@@ -90,12 +90,12 @@ namespace Graphic
 
         private void numericUpDown1_ValueChanged(object sender, EventArgs e)
         {
-            
+
         }
 
         private void toolStripLabel2_Click(object sender, EventArgs e)
         {
-            
+
         }
 
         private void toolStripLabel2_Click_1(object sender, EventArgs e)
@@ -187,7 +187,7 @@ namespace Graphic
         {
             currentInstrument = 7;
             trackBar1.Visible = true;
-            toolStripButton1.BackColor= Color.IndianRed;
+            toolStripButton1.BackColor = Color.IndianRed;
             penToolStrip.BackColor = Control.DefaultBackColor;
             zoomOutToolStrip.BackColor = Control.DefaultBackColor;
             zoomInToolStrip.BackColor = Control.DefaultBackColor;
@@ -254,6 +254,26 @@ namespace Graphic
         private void эффект11ToolStripMenuItem_Click(object sender, EventArgs e)
         {
             ((FrmChild)this.ActiveMdiChild).FlipVertical();
+        }
+
+        private void каскадомToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.LayoutMdi(MdiLayout.Cascade);
+        }
+
+        private void слеваНаправоToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.LayoutMdi(MdiLayout.TileHorizontal);
+        }
+
+        private void сверхуВнизToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.LayoutMdi(MdiLayout.TileVertical);
+        }
+
+        private void упорядчитьЗначкиToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.LayoutMdi(MdiLayout.ArrangeIcons);
         }
     }
 }

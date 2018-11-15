@@ -74,13 +74,6 @@ namespace Graphic
 
         private void FrmChild_SizeChanged(object sender, EventArgs e)
         {
-            //if (bmp != null)
-            //{
-            //    pictureBox1.Dock = DockStyle.Fill;
-            //    pictureBox1.Size = this.Size;
-            //    Bitmap tmp = new Bitmap(bmp, pictureBox1.Size);
-            //    bmp = tmp;
-            //}
         }
 
         private void FrmChild_ResizeBegin(object sender, EventArgs e)
@@ -105,6 +98,8 @@ namespace Graphic
                 g1.DrawImage(photoBitmap, new Rectangle(0, 0, photoBitmap.Width, photoBitmap.Height));
                 g2.DrawImage(sketchBitmap, new Rectangle(0, 0, sketchBitmap.Width, sketchBitmap.Height));
             }
+            pictureBox1.Refresh();
+            bmp = new Bitmap(pictureBox1.Image, pictureBox1.Size);
         }
 
         private void pictureBox1_MouseUp(object sender, MouseEventArgs e)
@@ -145,10 +140,6 @@ namespace Graphic
 
         public void ZoomIn()
         {
-            //Bitmap bitmap = new Bitmap(pictureBox1.Image, pictureBox1.Width * 2, pictureBox1.Height * 2);
-            //bmp = bitmap;
-            //pictureBox1.Image = bmp;
-            //pictureBox1.Refresh();
             if (pictureBox1.Image.Width <= this.Width * 4)
             {
                 Image result = new Bitmap(pictureBox1.Image.Width * 2, pictureBox1.Image.Height * 2);
@@ -221,6 +212,8 @@ bmp.Height < pictureBox1.Height ? pictureBox1.Height : bmp.Height);
 
         public void Emboss()
         {
+            bmp = new Bitmap(pictureBox1.Image);
+            pictureBox1.Image = bmp;
             Bitmap temp = new Bitmap(pictureBox1.Image);
             int i, j, DispX = 1, DispY = 1, red, green, blue;
             for (i = 0; i <= temp.Height - 2; i++)
@@ -360,21 +353,25 @@ bmp.Height < pictureBox1.Height ? pictureBox1.Height : bmp.Height);
         {
             pictureBox1.Width = pictureBox1.Image.Width / 2;
             pictureBox1.Height = pictureBox1.Image.Height / 2;
+            pictureBox1.Refresh();
         }
         public void ViewZoomIn()
         {
             pictureBox1.Width = pictureBox1.Image.Width * 2;
             pictureBox1.Height = pictureBox1.Image.Height * 2;
+            pictureBox1.Refresh();
         }
         public void RotateLeft()
         {
             pictureBox1.Image.RotateFlip(RotateFlipType.Rotate270FlipNone);
             pictureBox1.Width = pictureBox1.Height * pictureBox1.Image.Width / pictureBox1.Image.Height;
+            pictureBox1.Refresh();
         }
         public void RotateRight()
         {
             pictureBox1.Image.RotateFlip(RotateFlipType.Rotate90FlipNone);
             pictureBox1.Width = pictureBox1.Height * pictureBox1.Image.Width / pictureBox1.Image.Height;
+            pictureBox1.Refresh();
         }
         public void FlipHorizontal()
         {
