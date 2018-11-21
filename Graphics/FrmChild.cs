@@ -44,12 +44,14 @@ namespace Graphic
                         oldX = e.X;
                         oldY = e.Y;
                         pictureBox1.Refresh();
+                        bmp = (Bitmap)pictureBox1.Image;
                         break;
                     case 7:
                         g.DrawLine(new Pen(pictureBox1.BackColor, (this.MdiParent as Form1).width) { StartCap = LineCap.Round, EndCap = LineCap.Round, LineJoin = LineJoin.Round }, oldX, oldY, e.X, e.Y);
                         oldX = e.X;
                         oldY = e.Y;
                         pictureBox1.Refresh();
+                        bmp = (Bitmap)pictureBox1.Image;
                         break;
                 }
 
@@ -83,7 +85,6 @@ namespace Graphic
 
         private void FrmChild_ResizeEnd(object sender, EventArgs e)
         {
-
             if (pictureBox1.Image != null && (pictureBox1.Image.Width < pictureBox1.Width || pictureBox1.Image.Height < pictureBox1.Height))
             {
                 var photoBitmap = (Bitmap)bmp.Clone();
@@ -113,6 +114,7 @@ namespace Graphic
                     case 2:
                         g.DrawLine(pen, oldX, oldY, e.X, e.Y);
                         pictureBox1.Refresh();
+                        bmp = (Bitmap)pictureBox1.Image;
                         break;
                     case 3:
                         double R = (e.X - oldX) / 2, r = e.X - oldX;   // радиусы
@@ -128,10 +130,12 @@ namespace Graphic
                         }
                         g.DrawLines(pen, points);
                         pictureBox1.Refresh();
+                        bmp = (Bitmap)pictureBox1.Image;
                         break;
                     case 4:
                         g.DrawEllipse(pen, oldX, oldY, e.X - oldX, e.Y - oldY);
                         pictureBox1.Refresh();
+                        bmp = (Bitmap)pictureBox1.Image;
                         break;
                 }
 
@@ -236,10 +240,13 @@ bmp.Height < pictureBox1.Height ? pictureBox1.Height : bmp.Height);
                 }
             }
             this.Text = "Дочерняя форма";
+            pictureBox1.Image = (Image)bmp;
             pictureBox1.Refresh();
         }
         public void Diffuse()
         {
+            bmp = new Bitmap(pictureBox1.Image);
+            pictureBox1.Image = bmp;
             Bitmap temp = new Bitmap(pictureBox1.Image);
             int i, j, DispX = 1, DispY = 1, red, green, blue;
             var random = new Random();
@@ -267,6 +274,8 @@ bmp.Height < pictureBox1.Height ? pictureBox1.Height : bmp.Height);
         }
         public void Sharpen()
         {
+            bmp = new Bitmap(pictureBox1.Image);
+            pictureBox1.Image = bmp;
             Bitmap temp = new Bitmap(pictureBox1.Image);
             int i, j, DispX = 1, DispY = 1, red, green, blue;
             for (i = DispX; i < temp.Height - DispX - 1; i++)
@@ -294,6 +303,8 @@ bmp.Height < pictureBox1.Height ? pictureBox1.Height : bmp.Height);
         }
         public void Smooth()
         {
+            bmp = new Bitmap(pictureBox1.Image);
+            pictureBox1.Image = bmp;
             Bitmap temp = new Bitmap(pictureBox1.Image);
             int i, j, DispX = 1, DispY = 1, red, green, blue;
             for (i = DispX; i < temp.Height - DispX - 1; i++)
@@ -346,20 +357,27 @@ bmp.Height < pictureBox1.Height ? pictureBox1.Height : bmp.Height);
         }
         public void ViewNormal()
         {
-            pictureBox1.Width = pictureBox1.Image.Width;
-            pictureBox1.Height = pictureBox1.Image.Height;
+            //pictureBox1.Width = pictureBox1.Image.Width;
+            //pictureBox1.Height = pictureBox1.Image.Height;
+            //pictureBox1.Refresh();
+            Image result = new Bitmap(pictureBox1.Width, pictureBox1.Height);
+            using (System.Drawing.Graphics g = System.Drawing.Graphics.FromImage((Image)result))
+            {
+                g.InterpolationMode = InterpolationMode.HighQualityBicubic;
+                g.DrawImage(bmp, 0, 0, pictureBox1.Width, pictureBox1.Height);
+                g.Dispose();
+            }
+            pictureBox1.Image = result;
+            bmp = (Bitmap)result;
+            pictureBox1.Refresh();
         }
         public void ViewZoomOut()
         {
-            pictureBox1.Width = pictureBox1.Image.Width / 2;
-            pictureBox1.Height = pictureBox1.Image.Height / 2;
-            pictureBox1.Refresh();
+            ZoomOut();
         }
         public void ViewZoomIn()
         {
-            pictureBox1.Width = pictureBox1.Image.Width * 2;
-            pictureBox1.Height = pictureBox1.Image.Height * 2;
-            pictureBox1.Refresh();
+            ZoomIn();
         }
         public void RotateLeft()
         {

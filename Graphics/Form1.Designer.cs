@@ -63,7 +63,6 @@
             this.zoomInToolStrip = new System.Windows.Forms.ToolStripButton();
             this.zoomOutToolStrip = new System.Windows.Forms.ToolStripButton();
             this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
-            this.toolStripButton2 = new System.Windows.Forms.ToolStripButton();
             this.trackBar1 = new System.Windows.Forms.TrackBar();
             this.menuStrip1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
@@ -99,34 +98,35 @@
             // tsmiCreate_Click
             // 
             this.tsmiCreate_Click.Name = "tsmiCreate_Click";
-            this.tsmiCreate_Click.Size = new System.Drawing.Size(193, 26);
+            this.tsmiCreate_Click.Size = new System.Drawing.Size(216, 26);
             this.tsmiCreate_Click.Text = "Создать";
             this.tsmiCreate_Click.Click += new System.EventHandler(this.создатьToolStripMenuItem_Click);
             // 
             // открытьToolStripMenuItem
             // 
             this.открытьToolStripMenuItem.Name = "открытьToolStripMenuItem";
-            this.открытьToolStripMenuItem.Size = new System.Drawing.Size(193, 26);
+            this.открытьToolStripMenuItem.Size = new System.Drawing.Size(216, 26);
             this.открытьToolStripMenuItem.Text = "Открыть...";
             this.открытьToolStripMenuItem.Click += new System.EventHandler(this.открытьToolStripMenuItem_Click);
             // 
             // сохранитьToolStripMenuItem
             // 
             this.сохранитьToolStripMenuItem.Name = "сохранитьToolStripMenuItem";
-            this.сохранитьToolStripMenuItem.Size = new System.Drawing.Size(193, 26);
+            this.сохранитьToolStripMenuItem.Size = new System.Drawing.Size(216, 26);
             this.сохранитьToolStripMenuItem.Text = "Сохранить";
+            this.сохранитьToolStripMenuItem.Click += new System.EventHandler(this.сохранитьToolStripMenuItem_Click);
             // 
             // tsmiSaveAs_Click
             // 
             this.tsmiSaveAs_Click.Name = "tsmiSaveAs_Click";
-            this.tsmiSaveAs_Click.Size = new System.Drawing.Size(193, 26);
+            this.tsmiSaveAs_Click.Size = new System.Drawing.Size(216, 26);
             this.tsmiSaveAs_Click.Text = "Сохранить как...";
             this.tsmiSaveAs_Click.Click += new System.EventHandler(this.tsmiSaveAs_Click_Click);
             // 
             // exitMenuItem
             // 
             this.exitMenuItem.Name = "exitMenuItem";
-            this.exitMenuItem.Size = new System.Drawing.Size(193, 26);
+            this.exitMenuItem.Size = new System.Drawing.Size(216, 26);
             this.exitMenuItem.Text = "Выход";
             this.exitMenuItem.Click += new System.EventHandler(this.exitMenuItem_Click);
             // 
@@ -276,8 +276,7 @@
             this.ellipseToolStrip,
             this.zoomInToolStrip,
             this.zoomOutToolStrip,
-            this.toolStripButton1,
-            this.toolStripButton2});
+            this.toolStripButton1});
             this.toolStrip1.Location = new System.Drawing.Point(0, 28);
             this.toolStrip1.Name = "toolStrip1";
             this.toolStrip1.Size = new System.Drawing.Size(984, 27);
@@ -368,16 +367,6 @@
             this.toolStripButton1.Text = "toolStripButton1";
             this.toolStripButton1.Click += new System.EventHandler(this.toolStripButton1_Click);
             // 
-            // toolStripButton2
-            // 
-            this.toolStripButton2.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolStripButton2.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton2.Image")));
-            this.toolStripButton2.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButton2.Name = "toolStripButton2";
-            this.toolStripButton2.Size = new System.Drawing.Size(24, 24);
-            this.toolStripButton2.Text = "toolStripButton2";
-            this.toolStripButton2.Click += new System.EventHandler(this.toolStripButton2_Click);
-            // 
             // trackBar1
             // 
             this.trackBar1.BackColor = System.Drawing.SystemColors.ControlLightLight;
@@ -454,7 +443,6 @@
         private System.Windows.Forms.ToolStripButton zoomOutToolStrip;
         private System.Windows.Forms.ToolStripButton toolStripButton1;
         private System.Windows.Forms.TrackBar trackBar1;
-        private System.Windows.Forms.ToolStripButton toolStripButton2;
     }
 }
 

@@ -275,5 +275,10 @@ namespace Graphic
         {
             this.LayoutMdi(MdiLayout.ArrangeIcons);
         }
+
+        private void сохранитьToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
