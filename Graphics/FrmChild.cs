@@ -85,22 +85,25 @@ namespace Graphic
 
         private void FrmChild_ResizeEnd(object sender, EventArgs e)
         {
-            if (pictureBox1.Image != null && (pictureBox1.Image.Width < pictureBox1.Width || pictureBox1.Image.Height < pictureBox1.Height))
+            if (pictureBox1.Size != new Size(0, 0))
             {
-                var photoBitmap = (Bitmap)bmp.Clone();
-                var sketchBitmap = (Bitmap)pictureBox1.Image.Clone();
+                if (pictureBox1.Image != null && (pictureBox1.Image.Width < pictureBox1.Width || pictureBox1.Image.Height < pictureBox1.Height))
+                {
+                    var photoBitmap = (Bitmap)bmp.Clone();
+                    var sketchBitmap = (Bitmap)pictureBox1.Image.Clone();
 
-                bmp = new Bitmap(pictureBox1.Width, pictureBox1.Height);
-                pictureBox1.Image = new Bitmap(pictureBox1.Width, pictureBox1.Height);
+                    bmp = new Bitmap(pictureBox1.Width, pictureBox1.Height);
+                    pictureBox1.Image = new Bitmap(pictureBox1.Width, pictureBox1.Height);
 
-                System.Drawing.Graphics g1 = System.Drawing.Graphics.FromImage(bmp);
-                System.Drawing.Graphics g2 = System.Drawing.Graphics.FromImage(pictureBox1.Image);
+                    System.Drawing.Graphics g1 = System.Drawing.Graphics.FromImage(bmp);
+                    System.Drawing.Graphics g2 = System.Drawing.Graphics.FromImage(pictureBox1.Image);
 
-                g1.DrawImage(photoBitmap, new Rectangle(0, 0, photoBitmap.Width, photoBitmap.Height));
-                g2.DrawImage(sketchBitmap, new Rectangle(0, 0, sketchBitmap.Width, sketchBitmap.Height));
+                    g1.DrawImage(photoBitmap, new Rectangle(0, 0, photoBitmap.Width, photoBitmap.Height));
+                    g2.DrawImage(sketchBitmap, new Rectangle(0, 0, sketchBitmap.Width, sketchBitmap.Height));
+                }
+                pictureBox1.Refresh();
+                bmp = new Bitmap(pictureBox1.Image, pictureBox1.Size);
             }
-            pictureBox1.Refresh();
-            bmp = new Bitmap(pictureBox1.Image, pictureBox1.Size);
         }
 
         private void pictureBox1_MouseUp(object sender, MouseEventArgs e)
