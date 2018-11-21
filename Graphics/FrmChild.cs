@@ -29,8 +29,6 @@ namespace Graphic
             InitializeComponent();
             bmp = new Bitmap(Image.FromFile(_path), pictureBox1.Size);
             pictureBox1.Image = bmp;
-            //pictureBox1.Width = pictureBox1.Image.Width;
-            //pictureBox1.Height = pictureBox1.Image.Height;
         }
         private void pictureBox1_MouseMove(object sender, MouseEventArgs e)
         {

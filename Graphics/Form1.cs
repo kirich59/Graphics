@@ -12,6 +12,7 @@ namespace Graphic
 {
     public partial class Form1 : Form
     {
+        private string _fileName;
         public Form1()
         {
             InitializeComponent();
@@ -69,6 +70,7 @@ namespace Graphic
                 if (ofd.CheckFileExists == true)
                 {
                     FrmChild child = new FrmChild(ofd.FileName);
+                    _fileName = ofd.FileName;
                     child.MdiParent = this;
                     child.Show();
                     toolStrip1.Visible = true;
@@ -278,7 +280,9 @@ namespace Graphic
 
         private void сохранитьToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
+            if (_fileName != null)
+                ((FrmChild)this.ActiveMdiChild).Save(_fileName);
+            else tsmiSaveAs_Click_Click(sender, e);
         }
     }
 }
